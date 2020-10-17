@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Shelly Smith",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 2,
+    "name": "Harry Potter",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 3,
+    "name": "Billy Bob",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 4,
+    "name": "Alfred ",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 5,
+    "name": "Big Ben",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 6,
+    "name": "Simba",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 7,
+    "name": "Tony Soprano",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  },
+  {
+    "id": 8,
+    "name": "Roman Bricks",
+    "location": {
+      "lat": 12,
+      "long": 345
+    }
+  }
+]
