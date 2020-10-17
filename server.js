@@ -4,22 +4,16 @@ const _ = require('lodash')
 const bodyParser = require('body-parser')
 const fs = require('fs')
 
+const routes = require('./routes')
+
 const app = express()
 const port = 5000
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
-const rawdata = fs.readFileSync(path.resolve(__dirname, 'tradesMen.json'));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.get('/tradesmen', (req, res) => {
-    res.send(JSON.parse(rawdata))
-    
-})
-
+app.get('/tradesmen', routes.tradesmen);
 app.post('/tradesmen', (req, res) => {
 
 res.send(req.body)
