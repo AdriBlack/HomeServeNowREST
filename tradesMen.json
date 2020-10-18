@@ -11,5 +11,11 @@
     "id": 9,
     "name": "Curious George",
     "location": { "lat": 124, "long": 3455 }
-  }
+  },
+  {
+    "id": 10,
+    "name": "Alice George",
+    "location": { "lat": 124, "long": 3455 }
+  },
+  { "id": 11, "name": "Blue Bird", "location": { "lat": 124, "long": 3455 } }
 ]

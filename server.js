@@ -33,19 +33,7 @@ const saveTradesMen = (tradesmen) => {
 }
 
 app.get('/tradesmen', routes.tradesmen);
-app.post('/tradesmen', (req, res) => {
-    const { id } = req.body
-    const tradesmen = loadTradesmen()
-    const duplicateTradesman = tradesmen.find((tradesman) => tradesman.id === id)
-    if (!duplicateTradesman) {
-        tradesmen.push({
-         ...req.body
-        })
-    }
-    saveTradesMen(tradesmen)
-    tradesmen.push(req.body)
-res.send(req.body)
-})
+app.post('/tradesmen', routes.tradesmen);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
