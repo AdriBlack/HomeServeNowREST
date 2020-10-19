@@ -4,13 +4,23 @@ const tradesmenService = require('../services/tradesmen.service')
 
 const create = (req, res) => {
     return jobsService.create(req.body)
-    .then((job) => {
-        return res.status(200).send(job)
-    })
-    .catch((error) => {
-        console.log(`${error}: Failed to create new job`)
-        res.status(400).send(`${error}: Failed to create new job`)
-    })
+        .then((job) => {
+            return tradesmenService.readAll()
+            .then(tradesmenArr => {
+                return jobsService.createJobsWithTradesmenCloseby(job, tradesmenArr)
+                .then(jobWithTradesmen => {
+                    return res.status(200).send(jobWithTradesmen)
+                })
+            })
+            .catch(error => {
+                console.log(`${error}: Failed to get all tradesmen`)
+                res.status(400).send(`${error}: Failed to get all tradesmen`)
+            })
+        })
+        .catch((error) => {
+            console.log(`${error}: Failed to create new job`)
+            res.status(400).send(`${error}: Failed to create new job`)
+        })
 }
 
 const readAll = (req, res) => {

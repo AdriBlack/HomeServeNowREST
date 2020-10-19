@@ -17,6 +17,36 @@ const create = async(params) => {
     return params
 }
 
+const createJobsWithTradesmenCloseby = async (job, tradesmenArry) => {
+    const jobLocationObj = job.location
+    const tradesmenDistanceArr = []
+    tradesmenArry.map(tradesman => {
+        const tradesmanLocationObj = tradesman.location
+        const latDiff = jobLocationObj.lat - tradesmanLocationObj.lat
+        const longDiff = jobLocationObj.long - tradesmanLocationObj.long
+        const distanceSquared = Math.pow(latDiff, 2) + Math.pow(longDiff, 2)
+        const distance = Math.sqrt(distanceSquared)
+        const key = {
+            id: tradesman.id,
+            name: tradesman.name,
+            distance: distance
+        }
+        tradesmenDistanceArr.push(key)
+
+    })
+    const sortTradesmenByDistance = tradesmenDistanceArr.sort((a, b) => {
+        return a.distance - b.distance
+    })
+    const jobWithTradesmen = {
+        ...job,
+        closestTradesmen: sortTradesmenByDistance.slice(0, 3)
+    }
+    //Currently when saved here responses get overwritten
+    // _saveJobs(jobWithTradesmen)
+    return jobWithTradesmen
+    
+}
+
 const _loadJobs = () => {
     try {
         const dataBuffer = fs.readFileSync('jobs.json')
@@ -62,6 +92,7 @@ const getClaimsByJobAndLocation = async () => {
 
  const getJobClaimsWithNearByTradesmen = (jobsAndLocationArr, tradesmenArr) => {
         jobsAndLocationArr.map((jobAndLocation) => {
+        
             tradesmenArr.map((trademan) => {
                 const jobLocationObj = jobAndLocation.location
                 const trademanLocationObj = trademan.location
@@ -69,12 +100,11 @@ const getClaimsByJobAndLocation = async () => {
                 const longDiff = jobLocationObj.longitude - trademanLocationObj.long
                 const distanceSquared = Math.pow(latDiff, 2) + Math.pow(longDiff, 2)
                 const distance = Math.sqrt(distanceSquared)
-             
                 const tradesmenWithDistanceCalc = {
                     ...trademan,
-                    distance: distance
+
+                    distance: [jobAndLocation]
                 }
-                console.log(tradesmenWithDistanceCalc)
                 return tradesmenWithDistanceCalc
             })
         })
@@ -85,5 +115,6 @@ const getClaimsByJobAndLocation = async () => {
      create,
      readJobs,
      getClaimsByJobAndLocation,
-     getJobClaimsWithNearByTradesmen
+     getJobClaimsWithNearByTradesmen,
+     createJobsWithTradesmenCloseby
  }
