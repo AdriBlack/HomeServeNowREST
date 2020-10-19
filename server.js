@@ -8,12 +8,14 @@ const routes = require('./routes')
 const app = express()
 const port = 5000
 
-app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/tradesmen', routes.tradesmen);
 app.post('/tradesmen', routes.tradesmen);
 
+app.get('/jobs', routes.jobs);
+app.get('/jobsTrade', routes.jobs);
 app.post('/jobs', routes.jobs);
 
 app.listen(port, () => {
