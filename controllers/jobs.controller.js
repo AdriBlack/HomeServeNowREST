@@ -6,13 +6,17 @@ const create = (req, res) => {
     return jobsService.create(req.body)
         .then((job) => {
             return tradesmenService.readAll()
-            .then(tradesmenArr => {
+            .then((tradesmenArr) => {
                 return jobsService.createJobsWithTradesmenCloseby(job, tradesmenArr)
-                .then(jobWithTradesmen => {
+                .then((jobWithTradesmen) => {
                     return res.status(200).send(jobWithTradesmen)
                 })
+                .catch((error) => {
+                    console.log(`${error}: Failed to create job with tradesmen array`)
+                    res.status(400).send(`${error}: Failed to create job with tradesmen array`)
+                })
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(`${error}: Failed to get all tradesmen`)
                 res.status(400).send(`${error}: Failed to get all tradesmen`)
             })
